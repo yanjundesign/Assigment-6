@@ -24,16 +24,17 @@ app.get("/getValue", function (req, res) {
 });
 
 
-app.get("/getAverage", function (req, res) { // edit this for A6
+app.get("/getAverage", function (req, res) {                            // edit this for A6
   var ts = parseInt(req.query.ts);
   var begin = ts;
   var end = ts;
-  /*begin.setHours(0)
-   * begin.setMinutes(0)
-   */
+  begin.setHours(0);
+  begin.setMinutes(0);
+  end.setHours(23);
+  end.setMinutes(59); 
 
-	db.collection("data").find({ts:{$lte:end.getTime()}, ts:{$gt:begin.getTime()}}).toArray(function(err, result){
-    var len = result.length; // length of data
+db.collection("data").find({ts:{$lte:end.getTime()}, ts:{$gt:begin.getTime()}}).toArray(function(err, result){
+    var len = result.length;     // length of data
     var tempSum = 0, humSum = 0; // define the sum of tem and hum
     for (var i = 0; i < len; i++) {
       tempSum = tempSum + result[i].t; // loop data and calculate the sum
